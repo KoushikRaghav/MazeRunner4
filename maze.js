@@ -7,35 +7,44 @@ var start;
 var end;
 var w,h;
 var route = [];
-function setup() {
+function setup() 
+{
  createCanvas(450, 450);
 console.log('A*');
- for(var i = 0; i < rows; i++){
+ for(var i = 0; i < rows; i++)
+ {
 maze[i] = new Array(columns);
-}
+ }
 
 //console.log(maze);
- for(var i = 0; i < rows; i++){
-for(var j = 0; j < columns; j++){
-maze[i][j] = new cell(i,j);
-}
-}
+for(var i = 0; i < rows; i++)
+  {
+    for(var j = 0; j < columns; j++)
+    {
+      maze[i][j] = new cell(i,j);
+    }
+  }
 
- w = width / columns;
+w = width / columns;
 h = height / rows;
- start = maze[0][0];
+start = maze[0][0];
 end = maze[rows-1][columns - 1];
 start.wall = false;
 end.wall = true;
 openGate.push(start);
 
-for(var i = 0; i < rows; i++){
-for(var j = 0; j < columns; j++){
-maze[i][j].addNeighbor(maze);
+ for(var i = 0; i < rows; i++)
+  {
+    for(var j = 0; j < columns; j++)
+    {
+      maze[i][j].addNeighbor(maze);
+    } 
+  }
 }
-}
-}
-function cell(i,j){
+
+
+function cell(i,j)
+{
 this.i = i;
 this.j = j;
 this.f = 0;
@@ -44,46 +53,58 @@ this.g = 0;
 this.neighbors = [];
 this.previous = undefined;
 this.wall = false;
-if(random(1) < 0){
-this.wall = true;
-}
+ if(random(1) < 0)
+ {
+    this.wall = true;
+ }
 
-this.display = function(col){
-fill(col);
- if(this.wall) {
-fill(0);
-}
-stroke(0);
-rect(this.i * w ,this.j * h , w -1, h-1);
-}
+this.display = function(col)
+  {
+   fill(col);
+   if(this.wall)
+   {
+     fill(0);
+   }
+   stroke(0);
+   rect(this.i * w ,this.j * h , w -1, h-1);
+  }
 
-this.addNeighbor = function(maze) {
+this.addNeighbor = function(maze)
+{
 var i = this.i;
 var j = this.j;
-if(i < rows - 1){
-this.neighbors.push(maze[i+1][j]);
-}
-if(i > 0){
-this.neighbors.push(maze[i-1][j]);
-}
-if(j < columns - 1){
-this.neighbors.push(maze[i][j+1]);
-}
-if(j > 0){
-this.neighbors.push(maze[i][j-1]);
-}
-if(i > 0 && j > 0){
-this.neighbors.push(maze[i-1][j-1]);
-}
-if(i < rows - 1 && j > 0){
-this.neighbors.push(maze[i+1][j-1]);
-}
-if(i > 0 && j < columns-1){
-this.neighbors.push(maze[i-1][j+1]);
-}
-if(i < rows-1 && j < columns-1){
-this.neighbors.push(maze[i+1][j+1]);
-}
+  if(i < rows - 1)
+  {
+   this.neighbors.push(maze[i+1][j]);
+  }
+ if(i > 0)
+ {
+  this.neighbors.push(maze[i-1][j]);
+ }
+ if(j < columns - 1)
+ {
+  this.neighbors.push(maze[i][j+1]);
+ }
+ if(j > 0)
+ {
+  this.neighbors.push(maze[i][j-1]); 
+ }
+ if(i > 0 && j > 0)
+ {
+  this.neighbors.push(maze[i-1][j-1]);
+ }
+ if(i < rows - 1 && j > 0)
+ {
+  this.neighbors.push(maze[i+1][j-1]);
+ }
+ if(i > 0 && j < columns-1)
+ {
+   this.neighbors.push(maze[i-1][j+1]);
+ }
+ if(i < rows-1 && j < columns-1)
+ {
+  this.neighbors.push(maze[i+1][j+1]);
+ }
 }
 }
 function draw() {
